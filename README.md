@@ -9,7 +9,7 @@ TaskManager.Api is a RESTful API for managing tasks, built with modern .NET tech
 - **.NET 9**: Utilizes the latest features and performance improvements of the .NET platform.
 - **Minimal APIs**: Implements lightweight HTTP APIs using the minimal API approach for simplicity and performance.
 - **C#**: Core programming language for all business logic and data models.
-- **In-Memory Data Store**: Uses an in-memory database for development and testing purposes.
+- **SQLite Data Store**: Uses a SQLite database for development and testing purposes.
 - **xUnit**: Unit testing framework for .NET, used for automated tests.
 - **Moq**: Mocking library for isolating dependencies in unit tests.
 
@@ -19,7 +19,7 @@ TaskManager.Api is a RESTful API for managing tasks, built with modern .NET tech
 - **Separation of Concerns**: Business logic is encapsulated in service classes, while data models and DTOs are clearly separated.
 - **Testability**: Interfaces and dependency injection are used to facilitate unit testing and promote loose coupling.
 - **Versioned Endpoints**: API endpoints are versioned (e.g., `TaskManagerEndpointsV1`) to support future enhancements without breaking existing clients.
-- **Extensibility**: The architecture allows for easy replacement of the in-memory data store with a persistent database in the future.
+- **Extensibility**: The architecture allows for easy replacement of the SQLite data store with any other persistent databases in the future.
 
 ## Running with Docker
 
