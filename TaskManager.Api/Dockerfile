@@ -1,10 +1,9 @@
-FROM mcr.microsoft.com/dotnet/aspnet:9.0-nanoserver-1809 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 WORKDIR /app
+EXPOSE 5134
 EXPOSE 7283
 
-ENV ASPNETCORE_URLS=http://+:7283
-
-FROM mcr.microsoft.com/dotnet/sdk:9.0-nanoserver-1809 AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG configuration=Release
 WORKDIR /src
 COPY ["./TaskManager.Api/TaskManager.Api.csproj", "TaskManager.Api/"]
