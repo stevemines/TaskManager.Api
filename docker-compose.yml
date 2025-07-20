@@ -1,0 +1,10 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP.NET Core service.
+
+services:
+  taskmanagerapi:
+    image: taskmanagerapi
+    build:
+      context: .
+      dockerfile: TaskManager.Api/Dockerfile
+    ports:
+      - 7283:7283
