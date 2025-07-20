@@ -7,7 +7,7 @@ ENV ASPNETCORE_URLS=http://+:7283
 FROM mcr.microsoft.com/dotnet/sdk:9.0-nanoserver-1809 AS build
 ARG configuration=Release
 WORKDIR /src
-COPY ["TaskManager.Api/TaskManager.Api.csproj", "TaskManager.Api/"]
+COPY ["./TaskManager.Api/TaskManager.Api.csproj", "TaskManager.Api/"]
 RUN dotnet restore "TaskManager.Api\TaskManager.Api.csproj"
 COPY . .
 WORKDIR "/src/TaskManager.Api"
