@@ -1,0 +1,34 @@
+@TaskManager.Api_HostAddress = https://localhost:7283
+
+
+POST {{TaskManager.Api_HostAddress}}/tasks/v1
+Content-Type: application/json
+
+{
+  "title": "task 2",
+  "description": "This is task 1 desc"
+}
+
+###
+
+GET {{TaskManager.Api_HostAddress}}/tasks/v1
+
+###
+
+DELETE {{TaskManager.Api_HostAddress}}/tasks/v1/626e4d1d-b607-4940-a010-11df080de68a
+
+###
+
+GET {{TaskManager.Api_HostAddress}}/tasks/v1/e2d8d0ad-bf14-472c-898a-71c6d30ca1fa
+
+###
+
+PUT {{TaskManager.Api_HostAddress}}/tasks/v1/c4abca0b-f141-49ba-bc75-062370120a8b
+Content-Type: application/json
+
+{
+    "title": "Task 1",
+    "description": "This is Task 1 desc"
+}
+
+###
