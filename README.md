@@ -41,3 +41,5 @@ API definition is available via the links below.The documentation describes the 
 The Task Manager REST API can run standalone as well. You can run the TaskManager.Api project and make requests to various endpoints using the Swagger UI (or a client of your choice):
 
 ...\swagger\index.html
+
+https://github.com/stevemines/TaskManager.Api/blob/master/Screenshot%202025-07-21%20115759.png?raw=true
