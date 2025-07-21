@@ -26,3 +26,18 @@ TaskManager.Api is a RESTful API for managing tasks, built with modern .NET tech
 You can build and run the TaskManager.Api application using Docker. Make sure you have [Docker](https://www.docker.com/get-started) installed.
 
 ### Build the Docker image
+
+## OpenAPI Document Support
+API definition is available via the links below.The documentation describes the API as a whole, including all its endpoints and operations.
+
+- https://localhost:7283/openapi/v1.json 
+- http://localhost:5134/openapi/v1.json 
+
+## Sample Requests
+
+
+## Optional
+
+The Task Manager REST API can run standalone as well. You can run the TaskManager.Api project and make requests to various endpoints using the Swagger UI (or a client of your choice):
+
+...\swagger\index.html

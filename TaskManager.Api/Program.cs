@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using TaskManager.Api.Data;
 using TaskManager.Api.Endpoints;
 using TaskManager.Api.Services;
@@ -24,6 +25,10 @@ namespace TaskManager.Api
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+            builder.Services.AddSwaggerGen(opt =>
+            {
+                opt.SwaggerDoc("v1", new OpenApiInfo { Title = "Task Manager API", Version = "v1" });
+            });
 
             var app = builder.Build();
 
@@ -31,7 +36,10 @@ namespace TaskManager.Api
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
+
 
             app.UseHttpsRedirection();
 
