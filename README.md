@@ -42,4 +42,4 @@ The Task Manager REST API can run standalone as well. You can run the TaskManage
 
 ...\swagger\index.html
 
-https://github.com/stevemines/TaskManager.Api/blob/master/Screenshot%202025-07-21%20115759.png?raw=true
+![alt text](https://github.com/stevemines/TaskManager.Api/blob/master/Screenshot%202025-07-21%20115759.png?raw=true)
