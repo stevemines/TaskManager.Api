@@ -6,10 +6,11 @@ EXPOSE 7283
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG configuration=Release
 WORKDIR /src
-COPY ["./TaskManager.Api/TaskManager.Api.csproj", "TaskManager.Api/"]
-RUN dotnet restore "TaskManager.Api\TaskManager.Api.csproj"
-COPY . .
+COPY ["TaskManager.Api.csproj", "TaskManager.Api/"]
+RUN dotnet restore "TaskManager.Api/TaskManager.Api.csproj" 
+
 WORKDIR "/src/TaskManager.Api"
+COPY . .
 RUN dotnet build "TaskManager.Api.csproj" -c $configuration -o /app/build
 
 FROM build AS publish
@@ -18,5 +19,6 @@ RUN dotnet publish "TaskManager.Api.csproj" -c $configuration -o /app/publish /p
 
 FROM base AS final
 WORKDIR /app
+
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "TaskManager.Api.dll"]
