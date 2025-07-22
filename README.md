@@ -31,7 +31,11 @@ Data persist between application restarts, making it suitable for development an
 You can build and run the TaskManager.Api application using Docker. Make sure you have [Docker](https://www.docker.com/get-started) installed.
 
 ### Build and Run the Docker image
-`docker compose up --build`
+To build and run the TaskManager.Api application using Docker, follow these steps:
+From the Applications root directory, run the following command to build the Docker image and start the application:
+```
+docker compose up --build
+```
 
 
 ### Hosting ASP.NET Core images with Docker Compose over HTTPS
