@@ -1,10 +1,11 @@
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 WORKDIR /app
 
-EXPOSE 7283
+EXPOSE 8080
+EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
-ARG configuration=Release
+ARG configuration=Development
 WORKDIR /src
 COPY ["TaskManager.Api.csproj", "TaskManager.Api/"]
 RUN dotnet restore "TaskManager.Api/TaskManager.Api.csproj" 

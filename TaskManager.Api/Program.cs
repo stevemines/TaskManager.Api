@@ -14,7 +14,7 @@ namespace TaskManager.Api
             var builder = WebApplication.CreateBuilder(args);
 
             //Add DB Context
-            builder.Services.AddDbContext<TaskDb>(opt => opt.UseSqlite($"Data Source=TaskList.db"));
+            builder.Services.AddDbContext<TaskDb>(opt => opt.UseSqlite($@"Data Source=Db/TaskList.db"));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             // Add application services
@@ -32,14 +32,19 @@ namespace TaskManager.Api
 
             var app = builder.Build();
 
+            //Add or update DB
+            using var scope = app.Services.CreateScope();
+            var db = scope.ServiceProvider.GetService<TaskDb>();
+            db?.Database.Migrate();
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
+
+            }
                 app.MapOpenApi();
                 app.UseSwagger();
                 app.UseSwaggerUI();
-            }
-
 
             app.UseHttpsRedirection();
 

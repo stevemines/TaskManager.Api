@@ -3,8 +3,19 @@
 services:
   taskmanagerapi:
     image: taskmanagerapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:8081;http://+:8080
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=4Development
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes:
+      - ~/.aspnet/https:/https:ro
+      - ./TaskManager.Api/Db:/app/Db
     build:
-      context: .
-      dockerfile: TaskManager.Api/Dockerfile
+      context: TaskManager.Api
+      dockerfile: Dockerfile
     ports:
-      - 7283:7283
+      - 8080:8080
+      - 8081:8081
+   
+   
