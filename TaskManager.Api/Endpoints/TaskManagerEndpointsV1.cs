@@ -1,26 +1,34 @@
-﻿
-using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
 using TaskManager.Api.Models;
 using TaskManager.Api.Services;
 
 namespace TaskManager.Api.Endpoints
 {
+    /// <summary>
+    /// Provides version 1 endpoints for task management operations.
+    /// </summary>
     public static class TaskManagerEndpointsV1
     {
+        /// <summary>
+        /// Maps all task management endpoints to the provided route group.
+        /// </summary>
         public static RouteGroupBuilder MapTaskManagerEndpointsV1(this RouteGroupBuilder group)
         {
-            group.MapDelete("/{id}", DeleteTask);
-            group.MapPut("/{id}", UpdateTask);
-            group.MapPut("/{id}/Complete", CompleteTask);
-            group.MapPost("/", CreateTask);
-            group.MapGet("/{id}", GetTask);
-            group.MapGet("/", GetAllTasks);
-            group.MapGet("/Completed", GetAllCompletedTasks);
-            group.MapGet("/Pending", GetAllPendingTasks);
+            group.MapDelete("/{id}", DeleteTask); // Delete a task by ID
+            group.MapPut("/{id}", UpdateTask); // Update a task by ID
+            group.MapPut("/{id}/Complete", CompleteTask); // Mark a task as completed
+            group.MapPost("/", CreateTask); // Create a new task
+            group.MapGet("/{id}", GetTask); // Get a task by ID
+            group.MapGet("/", GetAllTasks); // Get all tasks
+            group.MapGet("/Completed", GetAllCompletedTasks); // Get all completed tasks
+            group.MapGet("/Pending", GetAllPendingTasks); // Get all pending tasks
 
             return group;
         }
 
+        /// <summary>
+        /// Marks the specified task as completed.
+        /// </summary>
         public static async Task<Results<Ok<TaskItem>, BadRequest<string>, NotFound>> CompleteTask(Guid id, ITaskManagerService taskManagerService)
         {
             try
@@ -43,6 +51,9 @@ namespace TaskManager.Api.Endpoints
             }
         }
 
+        /// <summary>
+        /// Deletes the specified task.
+        /// </summary>
         public static async Task<Results<NoContent, BadRequest<string>, NotFound>> DeleteTask(Guid id, ITaskManagerService taskManagerService)
         {
             try
@@ -61,12 +72,16 @@ namespace TaskManager.Api.Endpoints
             }
         }
 
+        /// <summary>
+        /// Updates the specified task with new data.
+        /// </summary>
         public static async Task<Results<Ok<TaskItem>, Conflict<string>, BadRequest<string>, NotFound>> UpdateTask(Guid id, TaskCreateUpdateDto taskUpdate, ITaskManagerService taskManagerService)
         {
             try
             {
                 if (await taskManagerService.GetTask(id) is TaskItem task)
                 {
+                    // Prevent duplicate titles
                     if (!task.Title.Equals(taskUpdate.Title, StringComparison.OrdinalIgnoreCase) && await taskManagerService.TaskItemExists(taskUpdate.Title))
                     {
                         return TypedResults.Conflict("Task with the same title already exists.");
@@ -89,10 +104,14 @@ namespace TaskManager.Api.Endpoints
             }
         }
 
+        /// <summary>
+        /// Creates a new task.
+        /// </summary>
         public static async Task<Results<Created<TaskItem>, Conflict<string>, BadRequest<string>>> CreateTask(TaskCreateUpdateDto taskCreate, ITaskManagerService taskManagerService)
         {
             try
             {
+                // Prevent duplicate titles
                 if (await taskManagerService.TaskItemExists(taskCreate.Title))
                 {
                     return TypedResults.Conflict("Task with the same title already exists.");
@@ -108,7 +127,7 @@ namespace TaskManager.Api.Endpoints
                     Status = Models.TaskStatus.Pending
                 };
                 await taskManagerService.CreateTask(task);
-                
+
                 return TypedResults.Created($"/tasks/v1/{task.Id}", task);
             }
             catch (Exception ex)
@@ -117,6 +136,9 @@ namespace TaskManager.Api.Endpoints
             }
         }
 
+        /// <summary>
+        /// Retrieves a task by its ID.
+        /// </summary>
         public static async Task<Results<Ok<TaskItem>, BadRequest<string>, NotFound>> GetTask(Guid id, ITaskManagerService taskManagerService)
         {
             try
@@ -134,6 +156,9 @@ namespace TaskManager.Api.Endpoints
             }
         }
 
+        /// <summary>
+        /// Retrieves all tasks.
+        /// </summary>
         public static async Task<Results<Ok<List<TaskItem>>, BadRequest<string>, NotFound>> GetAllTasks(ITaskManagerService taskManagerService)
         {
             try
@@ -151,6 +176,9 @@ namespace TaskManager.Api.Endpoints
             }
         }
 
+        /// <summary>
+        /// Retrieves all pending tasks.
+        /// </summary>
         public static async Task<Results<Ok<List<TaskItem>>, BadRequest<string>, NotFound>> GetAllPendingTasks(ITaskManagerService taskManagerService)
         {
             try
@@ -168,6 +196,9 @@ namespace TaskManager.Api.Endpoints
             }
         }
 
+        /// <summary>
+        /// Retrieves all completed tasks.
+        /// </summary>
         public static async Task<Results<Ok<List<TaskItem>>, BadRequest<string>, NotFound>> GetAllCompletedTasks(ITaskManagerService taskManagerService)
         {
             try
